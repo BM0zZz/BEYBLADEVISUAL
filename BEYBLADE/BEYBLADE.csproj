@@ -101,7 +101,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Gifs\Valtryek_and_Spryzen_Epic_Clash.gif" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\beyblade-burst.png" />
   </ItemGroup>

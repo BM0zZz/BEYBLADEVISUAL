@@ -1,0 +1,24 @@
+﻿<Window x:Class="BEYBLADE.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Beyblade Arena"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <!-- Tu fondo -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#0E182F" Offset="0"/>
+                <GradientStop Color="#1B2E5A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Ojo: el Frame no debe estirar; sin márgenes -->
+        <Frame x:Name="RootFrame"
+               NavigationUIVisibility="Hidden"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0"/>
+    </Grid>
+</Window>

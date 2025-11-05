@@ -32,13 +32,14 @@ namespace BEYBLADE.Pages
             }
 
             MessageBox.Show($"Login OK: {nick}");
-            // Siguiente: _nav.Navigate(new HomePage(_nav, repo, nick));
+            // TODO: aquí navegarás a la página principal cuando la tengamos
+            // _nav.Content = new HomePage(_nav, nick);
         }
 
         private void GoRegister_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Abriremos la pantalla de registro en el siguiente paso.");
-            // Siguiente: _nav.Navigate(new RegisterPage(_nav, repo));
+            // Navegación real al registro (manteniendo el mismo Frame)
+            _nav.Content = new RegisterPage(_nav);
         }
     }
 }

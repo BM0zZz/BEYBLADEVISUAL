@@ -1,24 +1,21 @@
-﻿<Page x:Class="BEYBLADE.Pages.LoginPage"
+﻿<Page x:Class="BEYBLADE.Pages.RegisterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Login">
+      Title="Register">
 
-    <!-- === PALETA Y ESTILOS === -->
+    <!-- === PALETA Y ESTILOS (mismos del Login) === -->
     <Page.Resources>
-        <!-- Colores -->
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
         <SolidColorBrush x:Key="Card"   Color="#142138"/>
         <SolidColorBrush x:Key="BgTop"  Color="#0E182F"/>
         <SolidColorBrush x:Key="BgBot"  Color="#1B2E5A"/>
 
-        <!-- Fondo de la ventana (se mantiene) -->
         <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="{Binding Color, Source={StaticResource BgTop}}" Offset="0"/>
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Inputs -->
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -28,13 +25,11 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
-        <!-- Botón neón (base) -->
         <Style x:Key="NeonButtonBase" TargetType="Button">
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="130"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -61,7 +56,6 @@
             </Setter>
         </Style>
 
-        <!-- Botón neón azul -->
         <Style x:Key="NeonBlue" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Blue}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -72,7 +66,6 @@
             </Setter>
         </Style>
 
-        <!-- Botón neón amarillo -->
         <Style x:Key="NeonYellow" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Yellow}"/>
             <Setter Property="Foreground" Value="#0F1321"/>
@@ -83,7 +76,6 @@
             </Setter>
         </Style>
 
-        <!-- Botón terciario (contorno) para “Olvidé…” -->
         <Style x:Key="TertiaryButton" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -91,7 +83,7 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="Height" Value="34"/>
-            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinWidth" Value="120"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Template">
@@ -119,7 +111,6 @@
             </Setter>
         </Style>
 
-        <!-- Lema -->
         <Style x:Key="SloganText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Black"/>
@@ -135,12 +126,11 @@
             <Setter Property="Margin" Value="0,8,0,14"/>
         </Style>
 
-        <!-- Patrón diagonal sutil -->
+        <!-- Fondo decorativo del card -->
         <VisualBrush x:Key="DiagonalPattern" TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Opacity="0.05">
             <VisualBrush.Visual>
-                <Grid Width="10" Height="10" Background="Transparent">
-                    <Rectangle Width="1.5" Height="14" Fill="White" Opacity="1"
-                               RenderTransformOrigin="0.5,0.5">
+                <Grid Width="10" Height="10">
+                    <Rectangle Width="1.5" Height="14" Fill="White" RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>
                             <TransformGroup>
                                 <RotateTransform Angle="45"/>
@@ -151,8 +141,6 @@
                 </Grid>
             </VisualBrush.Visual>
         </VisualBrush>
-
-        <!-- Viñeta suave -->
         <RadialGradientBrush x:Key="SoftVignette" Center="0.5,0.5" RadiusX="0.9" RadiusY="0.9">
             <GradientStop Color="#00000000" Offset="0.55"/>
             <GradientStop Color="#88000000" Offset="1"/>
@@ -161,39 +149,30 @@
 
     <!-- === CONTENIDO === -->
     <Grid Background="{StaticResource BgGradient}">
-        <!-- CARD 320x500 con fondo integrado -->
-        <Border Width="320" Height="500" CornerRadius="18"
+        <Border Width="320" Height="520" CornerRadius="18"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.98"
                 Background="{StaticResource Card}">
             <Border.Effect>
                 <DropShadowEffect Color="#77000000" BlurRadius="30" ShadowDepth="0"/>
             </Border.Effect>
 
-            <!-- Capas internas del card (recorte a esquinas) -->
             <Grid ClipToBounds="True">
-                <!-- 1) Glow azul (arriba-izquierda) -->
+                <!-- Glows + textura -->
                 <Ellipse Width="220" Height="220" Fill="{StaticResource Blue}" Opacity="0.18"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-60,-60,0,0">
                     <Ellipse.Effect>
                         <BlurEffect Radius="40"/>
                     </Ellipse.Effect>
                 </Ellipse>
-
-                <!-- 2) Glow amarillo (abajo-derecha) -->
                 <Ellipse Width="260" Height="260" Fill="{StaticResource Yellow}" Opacity="0.12"
                          HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-70,-70">
                     <Ellipse.Effect>
                         <BlurEffect Radius="50"/>
                     </Ellipse.Effect>
                 </Ellipse>
-
-                <!-- 3) Patrón diagonal sutil -->
                 <Rectangle Fill="{StaticResource DiagonalPattern}" />
-
-                <!-- 4) Viñeta suave para centrar la atención -->
                 <Rectangle Fill="{StaticResource SoftVignette}" />
 
-                <!-- 5) Contenido del login con padding interno -->
                 <Border Padding="22" Background="{x:Null}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -202,44 +181,57 @@
                             <RowDefinition Height="Auto"/>
                             <!-- lema -->
                             <RowDefinition Height="Auto"/>
-                            <!-- formulario -->
-                            <RowDefinition Height="42"/>
-                            <!-- espacio form/botones -->
+                            <!-- form -->
                             <RowDefinition Height="Auto"/>
-                            <!-- botones -->
+                            <!-- checkbox -->
+                            <RowDefinition Height="24"/>
+                            <!-- espacio -->
                             <RowDefinition Height="Auto"/>
-                            <!-- olvidé -->
+                            <!-- botones principales -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- botón limpiar -->
                         </Grid.RowDefinitions>
 
                         <!-- LOGO -->
                         <Image Source="/Images/beyblade-burst.png"
-                               Height="92" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,4,0,6"/>
+                               Height="88" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,2,0,4"/>
 
                         <!-- LEMA -->
-                        <TextBlock Grid.Row="1" Text="¡Let it rip!" Style="{StaticResource SloganText}" Margin="0,23,0,0"/>
+                        <TextBlock Grid.Row="1" Text="¡Entrena, gira y gana!"
+                                   Style="{StaticResource SloganText}" Margin="0,10,0,8"/>
 
                         <!-- FORM -->
-                        <StackPanel Grid.Row="2" Margin="0,14,0,0">
+                        <StackPanel Grid.Row="2">
                             <TextBlock Text="Nick de entrenador" Foreground="White" FontWeight="SemiBold"/>
                             <TextBox x:Name="txtNick" Width="276" Style="{StaticResource FuturisticBox}" />
+
                             <TextBlock Text="Contraseña" Margin="0,8,0,0" Foreground="White" FontWeight="SemiBold"/>
                             <PasswordBox x:Name="txtPass" Width="276" Style="{StaticResource FuturisticBox}" />
+
+                            <TextBlock Text="Confirmar contraseña" Margin="0,8,0,0" Foreground="White" FontWeight="SemiBold"/>
+                            <PasswordBox x:Name="txtConfirm" Width="276" Style="{StaticResource FuturisticBox}" />
                         </StackPanel>
 
-                        <!-- BOTONES (bajados y centrados) -->
-                        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,14,0,0">
-                            <Button Content="Registrarme"
-                                    Style="{StaticResource NeonYellow}"
-                                    Margin="0,0,10,0"
-                                    Click="GoRegister_Click"/>
-                            <Button Content="Entrar"
-                                    Style="{StaticResource NeonBlue}"
-                                    Click="Login_Click"/>
+                        <!-- CHECKBOX -->
+                        <CheckBox Grid.Row="3" x:Name="chkTerms"
+                                  Content="Acepto términos y condiciones"
+                                  Foreground="{StaticResource Yellow}"
+                                  FontWeight="SemiBold"
+                                  Margin="2,10,0,0"/>
+
+                        <!-- BOTONES PRINCIPALES (sin Spacing) -->
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                            <Button Content="Crear cuenta" Style="{StaticResource NeonYellow}" Width="120"
+                                    Margin="0,0,10,0" Click="CreateAccount_Click"/>
+                            <Button Content="Iniciar sesión" Style="{StaticResource NeonBlue}" Width="120"
+                                    Click="GoLogin_Click"/>
                         </StackPanel>
 
-                        <!-- OLVIDÉ -->
-                        <Button Grid.Row="5" Content="Olvidé mi contraseña" Style="{StaticResource TertiaryButton}"
-                                Margin="0,30,0,0" IsTabStop="False"/>
+                        <!-- BOTÓN LIMPIAR -->
+                        <Button Grid.Row="6" Content="Limpiar campos"
+                                Style="{StaticResource TertiaryButton}"
+                                Margin="0,18,0,0"
+                                Click="ClearForm_Click"/>
                     </Grid>
                 </Border>
             </Grid>

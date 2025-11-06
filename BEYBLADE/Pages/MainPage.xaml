@@ -1,0 +1,283 @@
+﻿<Page x:Class="BEYBLADE.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Main">
+
+    <!-- ===== Recursos ===== -->
+    <Page.Resources>
+        <!-- Paleta -->
+        <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
+        <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
+        <SolidColorBrush x:Key="Card"   Color="#142138"/>
+        <SolidColorBrush x:Key="BgTop"  Color="#0E182F"/>
+        <SolidColorBrush x:Key="BgBot"  Color="#1B2E5A"/>
+        <SolidColorBrush x:Key="TextSoft" Color="#CFE5FF"/>
+        <SolidColorBrush x:Key="TextSoftStrong" Color="#E8F2FF"/>
+
+        <!-- Fondo ventana -->
+        <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{Binding Color, Source={StaticResource BgTop}}" Offset="0"/>
+            <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Inputs -->
+        <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1D2744"/>
+            <Setter Property="BorderBrush"  Value="{StaticResource Blue}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <!-- Botones neón -->
+        <Style x:Key="NeonButtonBase" TargetType="Button">
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,4"/>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="22" ShadowDepth="0" Opacity="0.9" Color="White"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.92"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.82"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NeonBlue" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
+            <Setter Property="Background" Value="{StaticResource Blue}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#550AA1FF" BlurRadius="24" ShadowDepth="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NeonYellow" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
+            <Setter Property="Background" Value="{StaticResource Yellow}"/>
+            <Setter Property="Foreground" Value="#0F1321"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#66FFD23F" BlurRadius="24" ShadowDepth="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Botón contorno (Salir) -->
+        <Style x:Key="TertiaryButton" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Yellow}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="MinWidth" Value="160"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,2"/>
+                            <Border.Effect>
+                                <DropShadowEffect Color="#55FFD23F" BlurRadius="16" ShadowDepth="0"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.92"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.84"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Título -->
+        <Style x:Key="SloganText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#79C8FF" Offset="0"/>
+                        <GradientStop Color="#FFD23F" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,6,0,8"/>
+        </Style>
+
+        <!-- Textura + viñeta -->
+        <VisualBrush x:Key="DiagonalPattern" TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute"
+                     Viewbox="0,0,10,10" ViewboxUnits="Absolute" Opacity="0.06">
+            <VisualBrush.Visual>
+                <Grid Width="10" Height="10">
+                    <Ellipse Width="1.4" Height="1.4" Fill="White"/>
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+        <RadialGradientBrush x:Key="SoftVignette" Center="0.5,0.5" RadiusX="0.95" RadiusY="0.95">
+            <GradientStop Color="#00000000" Offset="0.55"/>
+            <GradientStop Color="#99000000" Offset="1"/>
+        </RadialGradientBrush>
+    </Page.Resources>
+
+    <!-- ===== Contenido ===== -->
+    <Grid Background="{StaticResource BgGradient}">
+        <Border Width="500" Height="500" CornerRadius="18"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Background="{StaticResource Card}" Opacity="0.98">
+            <Border.Effect>
+                <DropShadowEffect Color="#77000000" BlurRadius="30" ShadowDepth="0"/>
+            </Border.Effect>
+
+            <Grid ClipToBounds="True">
+                <!-- brillos y textura -->
+                <Ellipse Width="260" Height="260" Fill="{StaticResource Blue}" Opacity="0.18"
+                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-80,-80,0,0">
+                    <Ellipse.Effect>
+                        <BlurEffect Radius="48"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <Ellipse Width="300" Height="300" Fill="{StaticResource Yellow}" Opacity="0.12"
+                         HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-90,-90">
+                    <Ellipse.Effect>
+                        <BlurEffect Radius="60"/>
+                    </Ellipse.Effect>
+                </Ellipse>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.25" IsHitTestVisible="False">
+                    <Ellipse Width="360" Height="360" Stroke="#55FFFFFF" StrokeThickness="1"/>
+                    <Ellipse Width="300" Height="300" Stroke="#33FFFFFF" StrokeThickness="1"/>
+                    <Ellipse Width="240" Height="240" Stroke="#22FFFFFF" StrokeThickness="1"/>
+                </Grid>
+                <Rectangle Fill="{StaticResource DiagonalPattern}"/>
+                <Rectangle Fill="{StaticResource SoftVignette}"/>
+
+                <!-- Layout definitivo -->
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <!-- aire arriba -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- header -->
+                        <RowDefinition Height="16"/>
+                        <!-- espacio -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- descripción -->
+                        <RowDefinition Height="18"/>
+                        <!-- espacio -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- tarjetas -->
+                        <RowDefinition Height="22"/>
+                        <!-- espacio -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- botones -->
+                        <RowDefinition Height="*"/>
+                        <!-- relleno -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- salir -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <StackPanel Grid.Row="1">
+                        <Image Source="/Images/beyblade-burst.png" Height="76"
+                               HorizontalAlignment="Center" Margin="0,0,0,6"/>
+                        <TextBlock Text="Centro de Entrenamiento" Style="{StaticResource SloganText}"/>
+                    </StackPanel>
+
+                    <!-- Descripción centrada y con ancho controlado -->
+                    <Border Grid.Row="3" Padding="0" HorizontalAlignment="Center">
+                        <TextBlock Foreground="{StaticResource TextSoftStrong}"
+                                   TextWrapping="Wrap" TextAlignment="Center"
+                                   FontSize="14" LineHeight="20" LineStackingStrategy="BlockLineHeight"
+                                   TextOptions.TextFormattingMode="Ideal"
+                                   TextOptions.TextRenderingMode="ClearType"
+                                   MaxWidth="440"
+                                   Text="Añade una peonza con su nombre y tipo. En Beyblade hay peonzas de Ataque (golpes potentes, menor aguante), Resistencia (giran más tiempo) y Equilibrio (mezcla de ambas)."/>
+                    </Border>
+
+                    <!-- TARJETAS en UNA SOLA FILA, centradas -->
+                    <Grid Grid.Row="5" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Ancho fijo para que quepan 3 -->
+                        <Border Grid.Column="0" Width="148" CornerRadius="12" Padding="10"
+                                Background="#17203A" BorderBrush="{StaticResource Blue}" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="Ataque" Foreground="{StaticResource Yellow}" FontWeight="Bold"
+                                           HorizontalAlignment="Center" FontSize="14"/>
+                                <TextBlock Text="Golpes potentes, menos aguante."
+                                           Foreground="{StaticResource TextSoft}" TextWrapping="Wrap"
+                                           TextAlignment="Center" FontSize="12" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="2" Width="148" CornerRadius="12" Padding="10"
+                                Background="#17203A" BorderBrush="{StaticResource Blue}" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="Resistencia" Foreground="{StaticResource Yellow}" FontWeight="Bold"
+                                           HorizontalAlignment="Center" FontSize="14"/>
+                                <TextBlock Text="Giro duradero, menos agresiva."
+                                           Foreground="{StaticResource TextSoft}" TextWrapping="Wrap"
+                                           TextAlignment="Center" FontSize="12" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="4" Width="148" CornerRadius="12" Padding="10"
+                                Background="#17203A" BorderBrush="{StaticResource Blue}" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="Equilibrio" Foreground="{StaticResource Yellow}" FontWeight="Bold"
+                                           HorizontalAlignment="Center" FontSize="14"/>
+                                <TextBlock Text="Balance entre ataque y aguante."
+                                           Foreground="{StaticResource TextSoft}" TextWrapping="Wrap"
+                                           TextAlignment="Center" FontSize="12" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Botones: debajo de tarjetas -->
+                    <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Añadir" Style="{StaticResource NeonYellow}" Width="146" Margin="0,0,12,0"
+                                Click="ShowAdd_Click"/>
+                        <Button Content="Buscar" Style="{StaticResource NeonBlue}" Width="146" Margin="0,0,12,0"
+                                Click="ShowSearch_Click"/>
+                        <Button Content="Borrar" Style="{StaticResource NeonBlue}" Width="146"
+                                Click="ShowDelete_Click"/>
+                    </StackPanel>
+
+                    <!-- Salir, fijo abajo -->
+                    <Button Grid.Row="9" Content="Salir" Style="{StaticResource TertiaryButton}"
+                            Margin="0,6,0,0" Click="Exit_Click"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

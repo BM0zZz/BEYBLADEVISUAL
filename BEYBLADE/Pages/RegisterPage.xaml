@@ -3,19 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Register">
 
-    <!-- === PALETA Y ESTILOS (mismos del Login) === -->
+    <!-- === PALETA Y ESTILOS (idénticos al Login) === -->
     <Page.Resources>
+        <!-- Colores -->
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
         <SolidColorBrush x:Key="Card"   Color="#142138"/>
         <SolidColorBrush x:Key="BgTop"  Color="#0E182F"/>
         <SolidColorBrush x:Key="BgBot"  Color="#1B2E5A"/>
 
+        <!-- Fondo ventana -->
         <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="{Binding Color, Source={StaticResource BgTop}}" Offset="0"/>
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
+        <!-- Inputs -->
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -25,6 +28,7 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
+        <!-- Botón neón (base) -->
         <Style x:Key="NeonButtonBase" TargetType="Button">
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -56,6 +60,7 @@
             </Setter>
         </Style>
 
+        <!-- Botones neón -->
         <Style x:Key="NeonBlue" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Blue}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -65,7 +70,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Style x:Key="NeonYellow" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Yellow}"/>
             <Setter Property="Foreground" Value="#0F1321"/>
@@ -75,7 +79,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Style x:Key="TertiaryButton" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -111,6 +114,7 @@
             </Setter>
         </Style>
 
+        <!-- Lema -->
         <Style x:Key="SloganText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Black"/>
@@ -149,7 +153,8 @@
 
     <!-- === CONTENIDO === -->
     <Grid Background="{StaticResource BgGradient}">
-        <Border Width="320" Height="520" CornerRadius="18"
+        <!-- +30px de alto para que respire -->
+        <Border Width="320" Height="530" CornerRadius="18"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.98"
                 Background="{StaticResource Card}">
             <Border.Effect>
@@ -173,64 +178,61 @@
                 <Rectangle Fill="{StaticResource DiagonalPattern}" />
                 <Rectangle Fill="{StaticResource SoftVignette}" />
 
-                <Border Padding="22" Background="{x:Null}">
+                <!-- Layout con fila elástica para que los botones no se corten -->
+                <Border Padding="18" Background="{x:Null}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <!-- logo -->
                             <RowDefinition Height="Auto"/>
                             <!-- lema -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- form -->
-                            <RowDefinition Height="Auto"/>
-                            <!-- checkbox -->
-                            <RowDefinition Height="24"/>
-                            <!-- espacio -->
+                            <RowDefinition Height="*"/>
+                            <!-- form + checkbox (se adapta) -->
                             <RowDefinition Height="Auto"/>
                             <!-- botones principales -->
                             <RowDefinition Height="Auto"/>
                             <!-- botón limpiar -->
                         </Grid.RowDefinitions>
 
-                        <!-- LOGO -->
+                        <!-- LOGO (ligeramente más compacto) -->
                         <Image Source="/Images/beyblade-burst.png"
-                               Height="88" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,2,0,4"/>
+                               Height="82" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,4"/>
 
                         <!-- LEMA -->
                         <TextBlock Grid.Row="1" Text="¡Entrena, gira y gana!"
-                                   Style="{StaticResource SloganText}" Margin="0,10,0,8"/>
+                                   Style="{StaticResource SloganText}" Margin="0,6,0,6"/>
 
-                        <!-- FORM -->
+                        <!-- FORM + CHECKBOX -->
                         <StackPanel Grid.Row="2">
                             <TextBlock Text="Nick de entrenador" Foreground="White" FontWeight="SemiBold"/>
                             <TextBox x:Name="txtNick" Width="276" Style="{StaticResource FuturisticBox}" />
 
-                            <TextBlock Text="Contraseña" Margin="0,8,0,0" Foreground="White" FontWeight="SemiBold"/>
+                            <TextBlock Text="Correo electrónico" Margin="0,6,0,0" Foreground="White" FontWeight="SemiBold"/>
+                            <TextBox x:Name="txtMail" Width="276" Style="{StaticResource FuturisticBox}" />
+
+                            <TextBlock Text="Contraseña" Margin="0,6,0,0" Foreground="White" FontWeight="SemiBold"/>
                             <PasswordBox x:Name="txtPass" Width="276" Style="{StaticResource FuturisticBox}" />
 
-                            <TextBlock Text="Confirmar contraseña" Margin="0,8,0,0" Foreground="White" FontWeight="SemiBold"/>
+                            <TextBlock Text="Confirmar contraseña" Margin="0,6,0,0" Foreground="White" FontWeight="SemiBold"/>
                             <PasswordBox x:Name="txtConfirm" Width="276" Style="{StaticResource FuturisticBox}" />
+
+                            <CheckBox x:Name="chkTerms"
+                                      Content="Acepto términos y condiciones"
+                                      Foreground="{StaticResource Yellow}"
+                                      FontWeight="SemiBold"
+                                      Margin="0,20,0,0"/>
                         </StackPanel>
 
-                        <!-- CHECKBOX -->
-                        <CheckBox Grid.Row="3" x:Name="chkTerms"
-                                  Content="Acepto términos y condiciones"
-                                  Foreground="{StaticResource Yellow}"
-                                  FontWeight="SemiBold"
-                                  Margin="2,10,0,0"/>
-
-                        <!-- BOTONES PRINCIPALES (sin Spacing) -->
-                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
-                            <Button Content="Crear cuenta" Style="{StaticResource NeonYellow}" Width="120"
-                                    Margin="0,0,10,0" Click="CreateAccount_Click"/>
-                            <Button Content="Iniciar sesión" Style="{StaticResource NeonBlue}" Width="120"
-                                    Click="GoLogin_Click"/>
+                        <!-- BOTONES PRINCIPALES (siempre visibles) -->
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
+                            <Button Content="Crear cuenta" Style="{StaticResource NeonYellow}" Margin="0,0,10,0" Click="CreateAccount_Click"/>
+                            <Button Content="Iniciar sesión" Style="{StaticResource NeonBlue}" Click="GoLogin_Click"/>
                         </StackPanel>
 
                         <!-- BOTÓN LIMPIAR -->
-                        <Button Grid.Row="6" Content="Limpiar campos"
+                        <Button Grid.Row="4" Content="Limpiar campos"
                                 Style="{StaticResource TertiaryButton}"
-                                Margin="0,18,0,0"
+                                Margin="0,20,0,0"
                                 Click="ClearForm_Click"/>
                     </Grid>
                 </Border>

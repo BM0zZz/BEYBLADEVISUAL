@@ -34,7 +34,7 @@ namespace BEYBLADE.Pages
                 return;
             }
 
-            // Pasamos el nick al MainPage
+            
             if (_nav != null)
                 _nav.Content = new MainPage(_nav, nick);  // usa el Frame existente
             else

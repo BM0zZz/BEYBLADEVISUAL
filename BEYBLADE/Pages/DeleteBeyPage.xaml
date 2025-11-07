@@ -54,7 +54,7 @@
             <Setter Property="Foreground" Value="#0F1321"/>
         </Style>
 
-        <!-- selección legible -->
+        
         <Style TargetType="ListBoxItem">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="Transparent"/>

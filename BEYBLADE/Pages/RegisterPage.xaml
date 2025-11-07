@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Register">
 
-    <!-- === PALETA Y ESTILOS (idénticos al Login) === -->
+   
     <Page.Resources>
         <!-- Colores -->
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
@@ -114,7 +114,7 @@
             </Setter>
         </Style>
 
-        <!-- Lema -->
+        
         <Style x:Key="SloganText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Black"/>
@@ -153,7 +153,7 @@
 
     <!-- === CONTENIDO === -->
     <Grid Background="{StaticResource BgGradient}">
-        <!-- +30px de alto para que respire -->
+        
         <Border Width="320" Height="530" CornerRadius="18"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.98"
                 Background="{StaticResource Card}">
@@ -162,7 +162,7 @@
             </Border.Effect>
 
             <Grid ClipToBounds="True">
-                <!-- Glows + textura -->
+                
                 <Ellipse Width="220" Height="220" Fill="{StaticResource Blue}" Opacity="0.18"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-60,-60,0,0">
                     <Ellipse.Effect>
@@ -178,7 +178,7 @@
                 <Rectangle Fill="{StaticResource DiagonalPattern}" />
                 <Rectangle Fill="{StaticResource SoftVignette}" />
 
-                <!-- Layout con fila elástica para que los botones no se corten -->
+                
                 <Border Padding="18" Background="{x:Null}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -194,7 +194,7 @@
                             <!-- botón limpiar -->
                         </Grid.RowDefinitions>
 
-                        <!-- LOGO (ligeramente más compacto) -->
+                        <!-- LOGO  -->
                         <Image Source="/Images/beyblade-burst.png"
                                Height="82" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,4"/>
 
@@ -223,7 +223,7 @@
                                       Margin="0,20,0,0"/>
                         </StackPanel>
 
-                        <!-- BOTONES PRINCIPALES (siempre visibles) -->
+                        <!-- BOTONES PRINCIPALES  -->
                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
                             <Button Content="Crear cuenta" Style="{StaticResource NeonYellow}" Margin="0,0,10,0" Click="CreateAccount_Click"/>
                             <Button Content="Iniciar sesión" Style="{StaticResource NeonBlue}" Click="GoLogin_Click"/>

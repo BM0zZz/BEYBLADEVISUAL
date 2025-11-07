@@ -1,4 +1,4 @@
-﻿// Pages/AddBeyPage.xaml.cs
+﻿
 using System.Windows;
 using System.Windows.Controls;
 using BEYBLADE.Data;
@@ -16,7 +16,7 @@ namespace BEYBLADE.Pages
             _nav = nav;
         }
 
-        // ctor sin parámetros (para NavigationService)
+      
         public AddBeyPage() : this(null) { }
 
         private void Guardar_Click(object sender, RoutedEventArgs e)

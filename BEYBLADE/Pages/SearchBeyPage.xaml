@@ -39,7 +39,7 @@
             <Setter Property="Foreground" Value="#0F1321"/>
         </Style>
 
-        <!-- selección legible sobre panel blanco -->
+        
         <Style TargetType="ListBoxItem">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -74,13 +74,13 @@
 
                 <Image Grid.Row="0" Source="/Images/beyblade-burst.png" Height="60" HorizontalAlignment="Center"/>
 
-                <!-- ancho fijo 220 y centrado -->
+              
                 <StackPanel Grid.Row="1" Width="220" HorizontalAlignment="Center" Margin="0,10,0,10">
                     <TextBlock Text="Filtrar por nombre:" Foreground="White" FontSize="13" FontWeight="SemiBold"/>
                     <TextBox x:Name="txtFiltro" Style="{StaticResource FuturisticBox}" TextChanged="Filtro_TextChanged"/>
                 </StackPanel>
 
-                <!-- panel BLANCO centrado y con el MISMO ancho -->
+             
                 <Border Grid.Row="2" Width="220" HorizontalAlignment="Center"
                         CornerRadius="8" Background="White" Padding="6">
                     <ListBox x:Name="lstResultados"

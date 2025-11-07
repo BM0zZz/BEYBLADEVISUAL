@@ -3,22 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Login">
 
-    <!-- === PALETA Y ESTILOS === -->
+    
     <Page.Resources>
-        <!-- Colores -->
+       
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
         <SolidColorBrush x:Key="Card"   Color="#142138"/>
         <SolidColorBrush x:Key="BgTop"  Color="#0E182F"/>
         <SolidColorBrush x:Key="BgBot"  Color="#1B2E5A"/>
 
-        <!-- Fondo de la ventana (se mantiene) -->
+        
         <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="{Binding Color, Source={StaticResource BgTop}}" Offset="0"/>
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Inputs -->
+       
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -28,7 +28,7 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
-        <!-- Botón neón (base) -->
+       
         <Style x:Key="NeonButtonBase" TargetType="Button">
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -83,7 +83,7 @@
             </Setter>
         </Style>
 
-        <!-- Botón terciario (contorno) para “Olvidé…” -->
+        
         <Style x:Key="TertiaryButton" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource Yellow}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -119,7 +119,7 @@
             </Setter>
         </Style>
 
-        <!-- Lema -->
+       
         <Style x:Key="SloganText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Black"/>
@@ -135,7 +135,7 @@
             <Setter Property="Margin" Value="0,8,0,14"/>
         </Style>
 
-        <!-- Patrón diagonal sutil -->
+        
         <VisualBrush x:Key="DiagonalPattern" TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Opacity="0.05">
             <VisualBrush.Visual>
                 <Grid Width="10" Height="10" Background="Transparent">
@@ -152,16 +152,16 @@
             </VisualBrush.Visual>
         </VisualBrush>
 
-        <!-- Viñeta suave -->
+        
         <RadialGradientBrush x:Key="SoftVignette" Center="0.5,0.5" RadiusX="0.9" RadiusY="0.9">
             <GradientStop Color="#00000000" Offset="0.55"/>
             <GradientStop Color="#88000000" Offset="1"/>
         </RadialGradientBrush>
     </Page.Resources>
 
-    <!-- === CONTENIDO === -->
+   
     <Grid Background="{StaticResource BgGradient}">
-        <!-- CARD 320x500 con fondo integrado -->
+       
         <Border Width="320" Height="500" CornerRadius="18"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.98"
                 Background="{StaticResource Card}">
@@ -169,9 +169,9 @@
                 <DropShadowEffect Color="#77000000" BlurRadius="30" ShadowDepth="0"/>
             </Border.Effect>
 
-            <!-- Capas internas del card (recorte a esquinas) -->
+            
             <Grid ClipToBounds="True">
-                <!-- 1) Glow azul (arriba-izquierda) -->
+                
                 <Ellipse Width="220" Height="220" Fill="{StaticResource Blue}" Opacity="0.18"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-60,-60,0,0">
                     <Ellipse.Effect>
@@ -179,7 +179,7 @@
                     </Ellipse.Effect>
                 </Ellipse>
 
-                <!-- 2) Glow amarillo (abajo-derecha) -->
+                
                 <Ellipse Width="260" Height="260" Fill="{StaticResource Yellow}" Opacity="0.12"
                          HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-70,-70">
                     <Ellipse.Effect>
@@ -187,13 +187,13 @@
                     </Ellipse.Effect>
                 </Ellipse>
 
-                <!-- 3) Patrón diagonal sutil -->
+                
                 <Rectangle Fill="{StaticResource DiagonalPattern}" />
 
-                <!-- 4) Viñeta suave para centrar la atención -->
+                
                 <Rectangle Fill="{StaticResource SoftVignette}" />
 
-                <!-- 5) Contenido del login con padding interno -->
+                
                 <Border Padding="22" Background="{x:Null}">
                     <Grid>
                         <Grid.RowDefinitions>

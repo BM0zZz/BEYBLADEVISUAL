@@ -15,7 +15,7 @@
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Cajas de texto azules como ya tenías -->
+        
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -27,7 +27,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Combo legible: cuadro claro + texto negro + menú con texto negro -->
+        
         <Style x:Key="ComboReadable" TargetType="ComboBox" BasedOn="{StaticResource FuturisticBox}">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="#E9EDF3"/>

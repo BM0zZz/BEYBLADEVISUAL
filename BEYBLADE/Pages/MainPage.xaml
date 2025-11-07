@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Main">
 
-    <!-- ===== Recursos ===== -->
+   
     <Page.Resources>
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
@@ -184,7 +184,7 @@
                     <StackPanel Grid.Row="1">
                         <Image Source="/Images/beyblade-burst.png" Height="76"
                                HorizontalAlignment="Center" Margin="0,0,0,6"/>
-                        <!-- ⚡ título que se rellena desde el .cs -->
+                       
                         <TextBlock x:Name="lblTitulo" Text="Centro de Entrenamiento" Style="{StaticResource SloganText}"/>
                     </StackPanel>
 
@@ -245,11 +245,11 @@
 
                     <!-- Botones -->
                     <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Content="Añadir" Style="{StaticResource NeonYellow}" Width="146" Margin="0,0,12,0"
+                        <Button Content="Añadir" Style="{StaticResource NeonYellow}" Width="142" Margin="0,0,12,0"
                                 Click="ShowAdd_Click"/>
-                        <Button Content="Buscar" Style="{StaticResource NeonBlue}" Width="146" Margin="0,0,12,0"
+                        <Button Content="Buscar" Style="{StaticResource NeonBlue}" Width="142" Margin="0,0,12,0"
                                 Click="ShowSearch_Click"/>
-                        <Button Content="Borrar" Style="{StaticResource NeonBlue}" Width="146"
+                        <Button Content="Borrar" Style="{StaticResource NeonBlue}" Width="142"
                                 Click="ShowDelete_Click"/>
                     </StackPanel>
 

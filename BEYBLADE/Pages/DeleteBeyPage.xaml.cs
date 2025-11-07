@@ -1,4 +1,4 @@
-﻿// Pages/DeleteBeyPage.xaml.cs
+﻿
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +18,6 @@ namespace BEYBLADE.Pages
             CargarLista("");
         }
 
-        // ctor sin parámetros
         public DeleteBeyPage() : this(null) { }
 
         private void CargarLista(string filtro)

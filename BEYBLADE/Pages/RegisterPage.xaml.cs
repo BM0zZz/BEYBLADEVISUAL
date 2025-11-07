@@ -13,7 +13,7 @@ namespace BEYBLADE.Pages
             _nav = nav;
         }
 
-        // ✅ Constructor vacío para permitir: new RegisterPage()
+        
         public RegisterPage() : this(null) { }
 
         private void CreateAccount_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿// Pages/MainPage.xaml.cs
+﻿
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -12,8 +12,7 @@ namespace BEYBLADE.Pages
         private readonly Frame _nav;
         private readonly string _trainer;
 
-        // Constructor cuando navegas con un Frame externo (como en App/MainWindow)
-        // Puedes llamar new MainPage(_nav) o new MainPage(_nav, nick)
+       
         public MainPage(Frame nav, string trainer = null)
         {
             InitializeComponent();
@@ -22,8 +21,7 @@ namespace BEYBLADE.Pages
             SetTitleOnLoaded();
         }
 
-        // Constructor sin Frame por si usas NavigationService directamente
-        // Puedes llamar new MainPage() o new MainPage(nick)
+        
         public MainPage(string trainer)
         {
             InitializeComponent();
@@ -31,12 +29,12 @@ namespace BEYBLADE.Pages
             SetTitleOnLoaded();
         }
 
-        // Constructor vacío por compatibilidad (equivale a trainer = null)
+      
         public MainPage() : this((string)null) { }
 
         private void SetTitleOnLoaded()
         {
-            // Esperamos al Loaded para asegurarnos de que lblTitulo existe
+           
             Loaded += (s, e) =>
             {
                 var nombre = string.IsNullOrWhiteSpace(_trainer) ? "Entrenador" : _trainer;
@@ -71,9 +69,7 @@ namespace BEYBLADE.Pages
             else NavigationService?.Navigate(new LoginPage());
         }
 
-        // ================================
-        // Handlers "internos" del panel oculto
-        // ================================
+      
 
         // Guardar desde el mini-formulario oculto
         private void Add_Save_Click(object sender, RoutedEventArgs e)

@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿// Pages/MainPage.xaml.cs
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using BEYBLADE.Data;
 using BEYBLADE.Models;
 
@@ -9,89 +11,130 @@ namespace BEYBLADE.Pages
     {
         private readonly Frame _nav;
 
+        // Constructor cuando navegas con un Frame externo (como en App/MainWindow)
         public MainPage(Frame nav)
         {
             InitializeComponent();
             _nav = nav;
-            MostrarPanel(panelAdd); // Por defecto: Añadir
         }
 
-        /* ===== Navegación de paneles + descripción ===== */
-        private void MostrarPanel(StackPanel panel)
+        // Constructor sin parámetros por si se usa NavigationService directamente
+        public MainPage()
         {
-            panelAdd.Visibility = panel == panelAdd ? Visibility.Visible : Visibility.Collapsed;
-            panelSearch.Visibility = panel == panelSearch ? Visibility.Visible : Visibility.Collapsed;
-            panelDelete.Visibility = panel == panelDelete ? Visibility.Visible : Visibility.Collapsed;
-
-            // tarjetas de tipos: visibles solo en "Añadir"
-            infoTipos.Visibility = panel == panelAdd ? Visibility.Visible : Visibility.Collapsed;
-
-            txtSearchResultado.Text = "";
-
-            if (panel == panelAdd)
-                txtHint.Text = "Añade una peonza con su nombre y tipo. En Beyblade hay peonzas de Ataque (golpes potentes, menor aguante), Resistencia (giran más tiempo) y Equilibrio (mezcla de ambas).";
-            else if (panel == panelSearch)
-                txtHint.Text = "Busca una peonza por su nombre exacto para comprobar si está registrada.";
-            else
-                txtHint.Text = "Elimina una peonza escribiendo su nombre exacto. Úsalo con cuidado.";
+            InitializeComponent();
         }
 
-        private void ShowAdd_Click(object sender, RoutedEventArgs e) => MostrarPanel(panelAdd);
-        private void ShowSearch_Click(object sender, RoutedEventArgs e) => MostrarPanel(panelSearch);
-        private void ShowDelete_Click(object sender, RoutedEventArgs e) => MostrarPanel(panelDelete);
-
-        /* ===== Añadir ===== */
-        private void AddGuardar_Click(object sender, RoutedEventArgs e)
+        // --- Navegación a páginas dedicadas ---
+        private void ShowAdd_Click(object sender, RoutedEventArgs e)
         {
-            var nombre = txtAddNombre.Text.Trim();
-            var tipo = (cbAddTipo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
-
-            try
-            {
-                PeonzaRepo.Add(new Peonza { Nombre = nombre, Tipo = tipo });
-                MessageBox.Show("Peonza guardada.");
-                txtAddNombre.Text = "";
-                cbAddTipo.SelectedIndex = 0;
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            if (_nav != null) _nav.Content = new AddBeyPage(_nav);
+            else NavigationService?.Navigate(new AddBeyPage());
         }
 
-        /* ===== Buscar ===== */
-        private void SearchBuscar_Click(object sender, RoutedEventArgs e)
+        private void ShowSearch_Click(object sender, RoutedEventArgs e)
         {
-            var nombre = txtSearchNombre.Text.Trim();
-            var p = PeonzaRepo.Find(nombre);
-            txtSearchResultado.Text = p == null ? "No encontrada." : $"Encontrada: {p}";
+            if (_nav != null) _nav.Content = new SearchBeyPage(_nav);
+            else NavigationService?.Navigate(new SearchBeyPage());
         }
 
-        /* ===== Borrar ===== */
-        private void DeleteBorrar_Click(object sender, RoutedEventArgs e)
+        private void ShowDelete_Click(object sender, RoutedEventArgs e)
         {
-            var nombre = txtDeleteNombre.Text.Trim();
-            if (string.IsNullOrWhiteSpace(nombre))
+            if (_nav != null) _nav.Content = new DeleteBeyPage(_nav);
+            else NavigationService?.Navigate(new DeleteBeyPage());
+        }
+
+        // --- Botón salir (parte inferior) ---
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            if (_nav != null) _nav.Content = new LoginPage(_nav);
+            else NavigationService?.Navigate(new LoginPage());
+        }
+
+        // ================================
+        // Handlers "internos" del panel oculto
+        // (existen para que compile; si algún día
+        // haces visible esos paneles, también funcionarán)
+        // ================================
+
+        // Guardar desde el mini-formulario oculto
+        private void Add_Save_Click(object sender, RoutedEventArgs e)
+        {
+            var name = (txtAddName?.Text ?? "").Trim();
+            var type = (cmbAddType?.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
+
+            if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Escribe un nombre.");
+                txtAddName?.Focus();
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                MessageBox.Show("Elige un tipo.");
+                cmbAddType?.Focus();
+                return;
+            }
+            if (BeyRepo.Find(name) != null)
+            {
+                MessageBox.Show("Ya existe una peonza con ese nombre.");
                 return;
             }
 
-            if (PeonzaRepo.Delete(nombre))
+            BeyRepo.Add(new Beyblade { Name = name, Type = type });
+            MessageBox.Show("Peonza guardada correctamente.");
+        }
+
+        // Limpiar del mini-formulario
+        private void Add_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtAddName != null) txtAddName.Text = "";
+            if (cmbAddType != null) cmbAddType.SelectedIndex = -1;
+            txtAddName?.Focus();
+        }
+
+        // Buscar desde el panel oculto
+        private void DoSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var q = (txtSearchQuery?.Text ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(q))
             {
-                MessageBox.Show("Peonza borrada.");
-                txtDeleteNombre.Text = "";
+                if (txtSearchResultado != null) txtSearchResultado.Text = "Escribe un nombre para buscar.";
+                return;
             }
-            else
+
+            var b = BeyRepo.Find(q);
+            if (txtSearchResultado != null)
             {
-                MessageBox.Show("No existe esa peonza.");
+                txtSearchResultado.Text = b == null
+                    ? "No se encontró ninguna peonza con ese nombre."
+                    : $"Encontrada:\n• Nombre: {b.Name}\n• Tipo: {b.Type}";
             }
         }
 
-        /* ===== Salir al Login ===== */
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        // Borrar desde el panel oculto
+        private void DoDelete_Click(object sender, RoutedEventArgs e)
         {
-            _nav.Content = new LoginPage(_nav);
+            var q = (txtDeleteName?.Text ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                MessageBox.Show("Escribe el nombre a borrar.");
+                txtDeleteName?.Focus();
+                return;
+            }
+
+            if (BeyRepo.Find(q) == null)
+            {
+                MessageBox.Show("No existe una peonza con ese nombre.");
+                return;
+            }
+
+            if (MessageBox.Show($"¿Seguro que deseas borrar \"{q}\"?",
+                                "Confirmar borrado",
+                                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                BeyRepo.Remove(q);
+                MessageBox.Show("Borrado correcto.");
+            }
         }
     }
 }

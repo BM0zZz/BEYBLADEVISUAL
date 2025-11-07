@@ -13,35 +13,37 @@ namespace BEYBLADE.Pages
             _nav = nav;
         }
 
+        // Botón: Crear cuenta
         private void CreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            var nick = txtNick.Text.Trim();
-            var mail = txtMail.Text.Trim();
+            var nick = (txtNick.Text ?? "").Trim();
+            var email = (txtMail.Text ?? "").Trim();
             var pass = txtPass.Password;
-            var confirm = txtConfirm.Password;
+            var passConf = txtConfirm.Password;
 
             if (string.IsNullOrWhiteSpace(nick))
             {
-                MessageBox.Show("Introduce tu nick de entrenador.");
+                MessageBox.Show("Introduce un nick válido.");
                 txtNick.Focus();
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(mail) || !mail.Contains("@"))
+            // Validación simple de email
+            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || email.StartsWith("@") || email.EndsWith("@"))
             {
                 MessageBox.Show("Introduce un correo válido (debe contener @).");
                 txtMail.Focus();
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(pass))
+            if (string.IsNullOrWhiteSpace(pass) || pass.Length < 4)
             {
-                MessageBox.Show("Introduce una contraseña.");
+                MessageBox.Show("La contraseña debe tener al menos 4 caracteres.");
                 txtPass.Focus();
                 return;
             }
 
-            if (pass != confirm)
+            if (pass != passConf)
             {
                 MessageBox.Show("Las contraseñas no coinciden.");
                 txtConfirm.Focus();
@@ -55,24 +57,26 @@ namespace BEYBLADE.Pages
                 return;
             }
 
-            // TODO: Guardar el usuario (lista/BD/archivo). De momento solo avisamos:
-            MessageBox.Show($"¡Cuenta creada para {nick}! 💥");
+            // ---- REGISTRO OK ----
+            MessageBox.Show($"Te has registrado correctamente, {nick}! 🎉");
 
-            // Volver al login tras crear
+            // IR DIRECTO AL LOGIN
             _nav.Content = new LoginPage(_nav);
         }
 
+        // Botón: Iniciar sesión (volver al login)
         private void GoLogin_Click(object sender, RoutedEventArgs e)
         {
             _nav.Content = new LoginPage(_nav);
         }
 
+        // Botón: Limpiar campos
         private void ClearForm_Click(object sender, RoutedEventArgs e)
         {
-            txtNick.Text = string.Empty;
-            txtMail.Text = string.Empty;
-            txtPass.Password = string.Empty;
-            txtConfirm.Password = string.Empty;
+            txtNick.Text = "";
+            txtMail.Text = "";
+            txtPass.Password = "";
+            txtConfirm.Password = "";
             chkTerms.IsChecked = false;
             txtNick.Focus();
         }

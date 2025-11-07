@@ -273,6 +273,58 @@
                                 Click="ShowDelete_Click"/>
                     </StackPanel>
 
+                    <!-- === PANELes DE CONTENIDO (ocultos por defecto) === -->
+                    <Grid x:Name="panelHost" Margin="0,12,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- ADD -->
+                        <StackPanel x:Name="panelAdd" Grid.Row="0" Visibility="Collapsed" Margin="0,0,0,6">
+                            <TextBlock Text="Añadir peonza" FontWeight="Bold" Foreground="White" Margin="0,0,0,6" />
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <TextBlock Text="Nombre:" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBox x:Name="txtAddName" Width="160"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <TextBlock Text="Tipo:" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ComboBox x:Name="cmbAddType" Width="160">
+                                    <ComboBoxItem Content="Ataque"/>
+                                    <ComboBoxItem Content="Resistencia"/>
+                                    <ComboBoxItem Content="Equilibrio"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <!-- aquí solo añado el Click -->
+                                <Button Content="Guardar" Width="110" Margin="0,0,8,0" Click="Add_Save_Click"/>
+                                <Button Content="Limpiar" Width="100" Click="Add_Clear_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- SEARCH -->
+                        <StackPanel x:Name="panelSearch" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,6">
+                            <TextBlock Text="Buscar peonza" FontWeight="Bold" Foreground="White" Margin="0,0,0,6" />
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                <TextBlock Text="Nombre:" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBox x:Name="txtSearchQuery" Width="180"/>
+                                <Button Content="Buscar" Width="100" Margin="8,0,0,0" Click="DoSearch_Click"/>
+                            </StackPanel>
+                            <TextBlock x:Name="txtSearchResultado" Foreground="#CFE5FF" TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <!-- DELETE -->
+                        <StackPanel x:Name="panelDelete" Grid.Row="2" Visibility="Collapsed">
+                            <TextBlock Text="Borrar peonza" FontWeight="Bold" Foreground="White" Margin="0,0,0,6" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Nombre:" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBox x:Name="txtDeleteName" Width="180"/>
+                                <Button Content="Borrar" Width="100" Margin="8,0,0,0" Click="DoDelete_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
                     <!-- Salir, fijo abajo -->
                     <Button Grid.Row="9" Content="Salir" Style="{StaticResource TertiaryButton}"
                             Margin="0,6,0,0" Click="Exit_Click"/>

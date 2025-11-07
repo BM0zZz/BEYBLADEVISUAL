@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿// Pages/LoginPage.xaml.cs
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BEYBLADE.Pages
@@ -12,6 +13,9 @@ namespace BEYBLADE.Pages
             InitializeComponent();
             _nav = nav;
         }
+
+        // ctor sin parámetros
+        public LoginPage() : this(null) { }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -31,15 +35,14 @@ namespace BEYBLADE.Pages
                 return;
             }
 
-            MessageBox.Show($"Login OK: {nick}");
-            // TODO: aquí navegarás a la página principal cuando la tengamos
-            // _nav.Content = new HomePage(_nav, nick);
+            if (_nav != null) _nav.Content = new MainPage(_nav);
+            else NavigationService?.Navigate(new MainPage());
         }
 
         private void GoRegister_Click(object sender, RoutedEventArgs e)
         {
-            // Navegación real al registro (manteniendo el mismo Frame)
-            _nav.Content = new RegisterPage(_nav);
+            if (_nav != null) _nav.Content = new RegisterPage(_nav);
+            else NavigationService?.Navigate(new RegisterPage());
         }
     }
 }

@@ -10,18 +10,39 @@ namespace BEYBLADE.Pages
     public partial class MainPage : Page
     {
         private readonly Frame _nav;
+        private readonly string _trainer;
 
         // Constructor cuando navegas con un Frame externo (como en App/MainWindow)
-        public MainPage(Frame nav)
+        // Puedes llamar new MainPage(_nav) o new MainPage(_nav, nick)
+        public MainPage(Frame nav, string trainer = null)
         {
             InitializeComponent();
             _nav = nav;
+            _trainer = trainer;
+            SetTitleOnLoaded();
         }
 
-        // Constructor sin parámetros por si se usa NavigationService directamente
-        public MainPage()
+        // Constructor sin Frame por si usas NavigationService directamente
+        // Puedes llamar new MainPage() o new MainPage(nick)
+        public MainPage(string trainer)
         {
             InitializeComponent();
+            _trainer = trainer;
+            SetTitleOnLoaded();
+        }
+
+        // Constructor vacío por compatibilidad (equivale a trainer = null)
+        public MainPage() : this((string)null) { }
+
+        private void SetTitleOnLoaded()
+        {
+            // Esperamos al Loaded para asegurarnos de que lblTitulo existe
+            Loaded += (s, e) =>
+            {
+                var nombre = string.IsNullOrWhiteSpace(_trainer) ? "Entrenador" : _trainer;
+                if (lblTitulo != null)
+                    lblTitulo.Text = $"Centro de Entrenamiento de {nombre}";
+            };
         }
 
         // --- Navegación a páginas dedicadas ---
@@ -52,8 +73,6 @@ namespace BEYBLADE.Pages
 
         // ================================
         // Handlers "internos" del panel oculto
-        // (existen para que compile; si algún día
-        // haces visible esos paneles, también funcionarán)
         // ================================
 
         // Guardar desde el mini-formulario oculto

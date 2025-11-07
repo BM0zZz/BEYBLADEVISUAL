@@ -1,6 +1,6 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace BEYBLADE.Pages
 {
@@ -14,7 +14,6 @@ namespace BEYBLADE.Pages
             _nav = nav;
         }
 
-        
         public LoginPage() : this(null) { }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -35,15 +34,19 @@ namespace BEYBLADE.Pages
                 return;
             }
 
-            if (_nav != null) _nav.Content = new MainPage(_nav);
-            else NavigationService?.Navigate(new MainPage());
+            // Pasamos el nick al MainPage
+            if (_nav != null)
+                _nav.Content = new MainPage(_nav, nick);  // usa el Frame existente
+            else
+                NavigationService?.Navigate(new MainPage(nick));  // navegación directa
         }
 
         private void GoRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (_nav != null) _nav.Content = new RegisterPage(_nav);
-            else NavigationService?.Navigate(new RegisterPage());
+            if (_nav != null)
+                _nav.Content = new RegisterPage(_nav);
+            else
+                NavigationService?.Navigate(new RegisterPage());
         }
-
     }
 }

@@ -10,37 +10,32 @@ namespace BEYBLADE.Pages
     {
         private readonly Frame _nav;
 
-        public SearchBeyPage(Frame nav)
+    
+        public SearchBeyPage(Frame nav = null)
         {
             InitializeComponent();
             _nav = nav;
-            CargarLista("");
         }
 
-        public SearchBeyPage() : this(null) { }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Refrescar("");
+        }
 
-        private void CargarLista(string filtro)
+        private void Refrescar(string filtro)
         {
             var q = (filtro ?? "").ToLower();
-            var data = string.IsNullOrWhiteSpace(q)
+            var data = string.IsNullOrEmpty(q)
                 ? BeyRepo.Items
                 : BeyRepo.Items.Where(b => (b.Name ?? "").ToLower().Contains(q)).ToList();
 
             lstResultados.ItemsSource = data;
-            lblCount.Text = data.Count == 1 ? "1 resultado" : $"{data.Count} resultados";
-
-            // auto seleccionar si exact match
-            var exact = data.FirstOrDefault(b => (b.Name ?? "").ToLower() == q);
-            if (exact != null)
-            {
-                lstResultados.SelectedItem = exact;
-                lstResultados.ScrollIntoView(exact);
-            }
+            lblCount.Text = data.Count + " resultado(s)";
         }
 
         private void Filtro_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CargarLista(txtFiltro.Text);
+            Refrescar(txtFiltro.Text);
         }
 
         private void Volver_Click(object sender, RoutedEventArgs e)

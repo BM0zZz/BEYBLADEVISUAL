@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Añadir" SnapsToDevicePixels="True" UseLayoutRounding="True">
 
-    <!-- === Recursos === -->
     <Page.Resources>
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
@@ -16,7 +15,7 @@
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Inputs -->
+        <!-- Cajas de texto azules como ya tenías -->
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -28,7 +27,22 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Botones neón (compactos) -->
+        <!-- Combo legible: cuadro claro + texto negro + menú con texto negro -->
+        <Style x:Key="ComboReadable" TargetType="ComboBox" BasedOn="{StaticResource FuturisticBox}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#E9EDF3"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Padding" Value="6,4"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Botones -->
         <Style x:Key="NeonButtonBase" TargetType="Button">
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -51,24 +65,13 @@
         <Style x:Key="NeonBlue" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Blue}"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#550AA1FF" BlurRadius="18" ShadowDepth="0"/>
-                </Setter.Value>
-            </Setter>
         </Style>
         <Style x:Key="NeonYellow" TargetType="Button" BasedOn="{StaticResource NeonButtonBase}">
             <Setter Property="Background" Value="{StaticResource Yellow}"/>
             <Setter Property="Foreground" Value="#0F1321"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#66FFD23F" BlurRadius="18" ShadowDepth="0"/>
-                </Setter.Value>
-            </Setter>
         </Style>
     </Page.Resources>
 
-    <!-- === Contenido === -->
     <Grid Background="{StaticResource BgGradient}">
         <Border Width="260" Height="320" CornerRadius="12"
                 Background="{StaticResource Card}" Opacity="0.98"
@@ -76,59 +79,38 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <!-- Logo -->
                     <RowDefinition Height="6"/>
                     <RowDefinition Height="Auto"/>
-                    <!-- Título -->
                     <RowDefinition Height="12"/>
                     <RowDefinition Height="Auto"/>
-                    <!-- Form -->
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
-                    <!-- Botones -->
                 </Grid.RowDefinitions>
 
-                <!-- Logo -->
-                <Image Grid.Row="0"
-                       Source="/Images/beyblade-burst.png"
-                       Height="68"
-                       HorizontalAlignment="Center"/>
-
-                <!-- Título -->
-                <TextBlock Grid.Row="2" Text="Añadir peonza"
-                           Foreground="White" FontSize="18" FontWeight="Bold"
+                <Image Grid.Row="0" Source="/Images/beyblade-burst.png" Height="68" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="Añadir peonza" Foreground="White" FontSize="18" FontWeight="Bold"
                            HorizontalAlignment="Center" Margin="0,0,0,6"/>
 
-                <!-- === Formulario con labels arriba-izquierda === -->
-                <!-- Contenedor centrado; ancho fijo para que todo quede simétrico dentro del Border -->
-                <StackPanel Grid.Row="4" Orientation="Vertical"
-                            Width="220" HorizontalAlignment="Center">
-                    <!-- Nombre -->
-                    <TextBlock Text="Nombre:" Foreground="White"
-                               FontSize="13" FontWeight="SemiBold"
+                <StackPanel Grid.Row="4" Width="220" HorizontalAlignment="Center">
+                    <TextBlock Text="Nombre:" Foreground="White" FontSize="13" FontWeight="SemiBold"
                                HorizontalAlignment="Left" Margin="0,2,0,4"/>
                     <TextBox x:Name="txtNombre" Style="{StaticResource FuturisticBox}"/>
 
-                    <!-- Espacio -->
                     <Border Height="10" Background="Transparent"/>
 
-                    <!-- Tipo -->
-                    <TextBlock Text="Tipo:" Foreground="White"
-                               FontSize="13" FontWeight="SemiBold"
+                    <TextBlock Text="Tipo:" Foreground="White" FontSize="13" FontWeight="SemiBold"
                                HorizontalAlignment="Left" Margin="0,0,0,4"/>
-                    <ComboBox x:Name="cmbTipo" Style="{StaticResource FuturisticBox}">
+                    <ComboBox x:Name="cmbTipo" Style="{StaticResource ComboReadable}">
                         <ComboBoxItem Content="Ataque"/>
                         <ComboBoxItem Content="Resistencia"/>
                         <ComboBoxItem Content="Equilibrio"/>
                     </ComboBox>
                 </StackPanel>
 
-                <!-- Botonera -->
-                <StackPanel Grid.Row="6" Orientation="Horizontal"
-                            HorizontalAlignment="Center" Margin="0,6,0,0">
+                <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,0">
                     <Button Content="Guardar" Style="{StaticResource NeonYellow}" Width="92" Margin="0,0,8,0"
                             Click="Guardar_Click"/>
-                    <Button Content="Volver"  Style="{StaticResource NeonBlue}"   Width="92"
+                    <Button Content="Volver"  Style="{StaticResource NeonBlue}" Width="92"
                             Click="Volver_Click"/>
                 </StackPanel>
             </Grid>

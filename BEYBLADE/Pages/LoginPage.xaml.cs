@@ -1,4 +1,4 @@
-﻿// Pages/LoginPage.xaml.cs
+﻿
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +14,7 @@ namespace BEYBLADE.Pages
             _nav = nav;
         }
 
-        // ctor sin parámetros
+        
         public LoginPage() : this(null) { }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -44,5 +44,6 @@ namespace BEYBLADE.Pages
             if (_nav != null) _nav.Content = new RegisterPage(_nav);
             else NavigationService?.Navigate(new RegisterPage());
         }
+
     }
 }

@@ -49,10 +49,16 @@ namespace BEYBLADE.Pages
                                 "Confirmar borrado", MessageBoxButton.YesNo,
                                 MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                BeyRepo.Remove(sel.Name);
-                CargarLista(txtFiltro.Text);
+                if (BeyRepo.Remove(sel.Name))
+                {
+                    // refrescar lista y limpiar selección
+                    CargarLista(txtFiltro.Text);
+                    lstResultados.SelectedIndex = -1;
+                    lstResultados.Items.Refresh();
+                }
             }
         }
+
 
         private void Volver_Click(object sender, RoutedEventArgs e)
         {

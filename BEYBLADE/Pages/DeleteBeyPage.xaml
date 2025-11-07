@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Borrar">
 
-    <!-- === Recursos locales === -->
     <Page.Resources>
         <SolidColorBrush x:Key="Blue"   Color="#0AA1FF"/>
         <SolidColorBrush x:Key="Yellow" Color="#FFD23F"/>
@@ -16,7 +15,6 @@
             <GradientStop Color="{Binding Color, Source={StaticResource BgBot}}" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Inputs -->
         <Style x:Key="FuturisticBox" TargetType="{x:Type Control}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#1D2744"/>
@@ -28,7 +26,6 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- Botones neón -->
         <Style x:Key="NeonButtonBase" TargetType="Button">
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -56,9 +53,21 @@
             <Setter Property="Background" Value="{StaticResource Yellow}"/>
             <Setter Property="Foreground" Value="#0F1321"/>
         </Style>
+
+        <!-- selección legible -->
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFD23F"/>
+                    <Setter Property="Foreground" Value="#0F1321"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
 
-    <!-- === Contenido === -->
     <Grid Background="{StaticResource BgGradient}">
         <Border Width="260" Height="340" CornerRadius="12"
                 Background="{StaticResource Card}" Opacity="0.98"
@@ -76,39 +85,30 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Logo -->
-                <Image Grid.Row="0" Source="/Images/beyblade-burst.png"
-                       Height="60" HorizontalAlignment="Center"/>
-
-                <!-- Título -->
-                <TextBlock Grid.Row="2" Text="Borrar peonza"
-                           Foreground="White" FontSize="18" FontWeight="Bold"
+                <Image Grid.Row="0" Source="/Images/beyblade-burst.png" Height="60" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="Borrar peonza" Foreground="White" FontSize="18" FontWeight="Bold"
                            HorizontalAlignment="Center"/>
 
-                <!-- Filtro -->
                 <StackPanel Grid.Row="4" Width="220" HorizontalAlignment="Center">
-                    <TextBlock Text="Filtrar por nombre:" Foreground="White"
-                               FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <TextBox x:Name="txtFiltro" Style="{StaticResource FuturisticBox}"
-                             TextChanged="Filtro_TextChanged"/>
+                    <TextBlock Text="Filtrar por nombre:" Foreground="White" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBox x:Name="txtFiltro" Style="{StaticResource FuturisticBox}" TextChanged="Filtro_TextChanged"/>
                 </StackPanel>
 
-                <!-- Resultados -->
-                <Border Grid.Row="6" CornerRadius="8" Background="#1F142138" Padding="6">
+                
+                <Border Grid.Row="6" Width="220" HorizontalAlignment="Center"
+                         CornerRadius="8" Background="White" Padding="6">
                     <ListBox x:Name="lstResultados"
-                             Foreground="White"
-                             BorderThickness="0"
-                             SelectionMode="Single"
-                             DisplayMemberPath="Name"/>
+                     Background="Transparent"
+                     Foreground="Black"
+                     BorderThickness="0"
+                     SelectionMode="Single"
+                     DisplayMemberPath="Name"/> 
                 </Border>
 
-                <!-- Botones -->
-                <StackPanel Grid.Row="8" Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                    <Button Content="Borrar" Style="{StaticResource NeonBlue}" Width="92"
-                            Click="Borrar_Click" Margin="0,0,8,0"/>
-                    <Button Content="Volver" Style="{StaticResource NeonYellow}" Width="92"
-                            Click="Volver_Click"/>
+
+                <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Borrar" Style="{StaticResource NeonBlue}" Width="92" Click="Borrar_Click" Margin="0,0,8,0"/>
+                    <Button Content="Volver" Style="{StaticResource NeonYellow}" Width="92" Click="Volver_Click"/>
                 </StackPanel>
             </Grid>
         </Border>
